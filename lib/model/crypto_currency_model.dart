@@ -1,14 +1,14 @@
 class CryptoCurrencyModel {
-  List<Data>? data;
+  List<CurrencyData>? data;
   Status? status;
 
   CryptoCurrencyModel({this.data, this.status});
 
   CryptoCurrencyModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = <Data>[];
+      data = <CurrencyData>[];
       json['data'].forEach((v) {
-        data!.add(Data.fromJson(v));
+        data!.add(CurrencyData.fromJson(v));
       });
     }
     status =
@@ -27,7 +27,7 @@ class CryptoCurrencyModel {
   }
 }
 
-class Data {
+class CurrencyData {
   int? id;
   int? rank;
   String? name;
@@ -38,7 +38,7 @@ class Data {
   String? lastHistoricalData;
   Platform? platform;
 
-  Data(
+  CurrencyData(
       {this.id,
         this.rank,
         this.name,
@@ -49,7 +49,7 @@ class Data {
         this.lastHistoricalData,
         this.platform});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  CurrencyData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     rank = json['rank'];
     name = json['name'];

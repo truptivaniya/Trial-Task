@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../model/model.dart';
+import '../screens/screen.dart';
 import '../service/service.dart';
 import '../util/common.dart';
 import 'controller.dart';
@@ -14,8 +15,8 @@ class HomeController extends BaseController
   late TabController tabController =
       TabController(length: 2, vsync: this, initialIndex: 0);
 
-  RxList<Data> cryptoCurrencyList = <Data>[].obs;
-  RxList<Data> favouriteList = <Data>[].obs;
+  RxList<CurrencyData> cryptoCurrencyList = <CurrencyData>[].obs;
+  RxList<CurrencyData> favouriteList = <CurrencyData>[].obs;
   ScrollController scrollController = ScrollController();
   RxInt pageNo = 1.obs;
   RxInt pageSize = 20.obs;
@@ -89,5 +90,9 @@ class HomeController extends BaseController
       isLoad.value = false;
       Common.noInternetSnackBar();
     }
+  }
+
+  redirectToDetailPage(CurrencyData data){
+    Get.toNamed(CurrencyDetailScreen.pageId,arguments: data);
   }
 }
