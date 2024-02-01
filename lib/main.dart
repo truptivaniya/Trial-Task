@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeService().theme,
       home: const SplashScreen(),
       debugShowCheckedModeBanner: false,
-      // initialRoute: HomeScreen.pageId,
+      initialRoute: SplashScreen.pageId,
       getPages: appPages,
       translations: Messages(),
       locale: Get.deviceLocale,

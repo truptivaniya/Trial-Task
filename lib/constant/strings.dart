@@ -8,5 +8,8 @@ class Strings {
   static const String strNoInternet = 'No internet connection is available.';
   static const String strSuccessful = 'Successful';
   static const String strSomethingWentWrong = 'Something went wrong';
+  static const String strCurrentCryptocurrencies = 'Current cryptocurrencies';
+  static const String strFavourites = 'Favourites';
+  static const String strBusinessEntities = 'Business Entities';
 
 }

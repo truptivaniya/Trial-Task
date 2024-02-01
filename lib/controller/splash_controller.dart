@@ -1,5 +1,8 @@
 import 'dart:async';
 
+import 'package:get/get.dart';
+import 'package:trial_task/screens/home/home_screen.dart';
+
 import 'controller.dart';
 
 class SplashController extends BaseController {
@@ -8,13 +11,11 @@ class SplashController extends BaseController {
 
   @override
   void onInit() {
-    Timer(const Duration(seconds: 1), goToLogin);
+    Timer(const Duration(seconds: 1), goToHome);
     super.onInit();
   }
 
-  void goToLogin() async {
-    // return await loadingWrapper(() async {
-    //   return Get.offAndToNamed(LoginScreen.pageId);
-    // });
+  void goToHome() async {
+    return Get.offAndToNamed(HomeScreen.pageId);
   }
 }
