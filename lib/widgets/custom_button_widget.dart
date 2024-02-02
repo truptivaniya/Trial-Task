@@ -31,6 +31,7 @@ class CustomButton extends StatelessWidget {
             side: BorderSide(color: ColorConfig.colorBlue),
           ),
         ),
+        onPressed: onCallback,
         child: Text(
           title!,
           textAlign: TextAlign.center,
@@ -39,7 +40,6 @@ class CustomButton extends StatelessWidget {
               fontSize: ThemeConstants.textThemeFontSize16,
               color: ColorConfig.colorWhite),
         ),
-        onPressed: () {},
       ),
     );
   }

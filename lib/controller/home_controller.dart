@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import '../model/model.dart';
 import '../screens/screen.dart';
 import '../service/service.dart';
-import '../util/common.dart';
+import '../util/util.dart';
 import 'controller.dart';
 
 class HomeController extends BaseController
@@ -22,8 +22,8 @@ class HomeController extends BaseController
   RxInt pageSize = 20.obs;
   RxBool isPaginateData = true.obs;
   RxBool isLoad = false.obs;
-  var refreshKey = GlobalKey<RefreshIndicatorState>();
-
+  var refreshKey1 = GlobalKey<RefreshIndicatorState>();
+  var refreshKey2 = GlobalKey<RefreshIndicatorState>();
 
   @override
   void errorHandler(e) {}
@@ -41,13 +41,25 @@ class HomeController extends BaseController
         }
       }
     });
+    getFavList();
     super.onInit();
   }
 
+  getFavList() async {
+    favouriteList.clear();
+    var data = await sharedPreferencesHelper.retrievePrefData('FavList');
+    if (data.isNotEmpty) {
+      List list = json.decode(data);
+      favouriteList.addAll(
+          List<CurrencyData>.from(list.map((x) => CurrencyData.fromJson(x))));
+    }
+    update();
+  }
+
   Future<void> refreshList() async {
-    refreshKey.currentState?.show(
+    refreshKey1.currentState?.show(
         atTop:
-        true); // change atTop to false to show progress indicator at bottom
+            true); // change atTop to false to show progress indicator at bottom
     await Future.delayed(const Duration(seconds: 2)); //wait here for 2 second
     pageNo.value = 1;
     getCurrencyData(isRefresh: true);
@@ -76,10 +88,11 @@ class HomeController extends BaseController
             isPaginateData.value = false;
           }
           isLoad.value = false;
-        }else{
+        } else {
           isLoad.value = false;
           var data = json.decode(response.body);
-          Common.apiErrorSnackBar('Status ${response.statusCode}',data['status']['error_message']);
+          Common.apiErrorSnackBar(
+              'Status ${response.statusCode}', data['status']['error_message']);
         }
       } catch (e) {
         Common.errorSnackBar();
@@ -92,7 +105,16 @@ class HomeController extends BaseController
     }
   }
 
-  redirectToDetailPage(CurrencyData data){
-    Get.toNamed(CurrencyDetailScreen.pageId,arguments: data);
+  redirectToDetailPage(CurrencyData data) async{
+    var value = await Get.toNamed(CurrencyDetailScreen.pageId, arguments: data);
+    if(value != null){
+      getFavList();
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    dispose();
   }
 }

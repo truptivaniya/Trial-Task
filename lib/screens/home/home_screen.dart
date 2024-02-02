@@ -73,18 +73,24 @@ class HomeScreen extends GetView<HomeController> {
                   ),
                 ),
               ),
-              Obx(() => controller.cryptoCurrencyList.isNotEmpty ? Flexible(
-                child: TabBarView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  controller: controller.tabController,
-                  children: [
-                    // Current Crypto Currency widget
-                    CryptoCurrencyWidget(),
-                    // Favourites
-                    CryptoCurrencyWidget()
-                  ],
-                ),
-              ) : Flexible(child: currencyShimmer())),
+              Obx(() => controller.cryptoCurrencyList.isNotEmpty
+                  ? Flexible(
+                      child: TabBarView(
+                        physics: const NeverScrollableScrollPhysics(),
+                        controller: controller.tabController,
+                        children: [
+                          // Current Crypto Currency widget
+                          CryptoCurrencyWidget(
+                            key: controller.refreshKey1,
+                          ),
+                          // Favourites Currency widget
+                          CryptoCurrencyWidget(
+                            key: controller.refreshKey2,
+                          )
+                        ],
+                      ),
+                    )
+                  : Flexible(child: currencyShimmer())),
             ],
           ),
         ),

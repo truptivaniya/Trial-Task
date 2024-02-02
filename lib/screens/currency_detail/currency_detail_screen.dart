@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../constant/constant.dart';
 import '../../controller/controller.dart';
+import '../../util/util.dart';
 import '../../widgets/widgets.dart';
 
 class CurrencyDetailScreen extends GetView<CurrencyDetailController> {
@@ -83,7 +86,32 @@ class CurrencyDetailScreen extends GetView<CurrencyDetailController> {
               const SizedBox(
                 height: 20,
               ),
-              CustomButton(title: Strings.strAddToFavourite,onCallback: (){},)
+              CustomButton(
+                title: controller.homeController.currentIndex.value == 0
+                    ? Strings.strAddToFavourite
+                    : Strings.strRemoveFromFavourite,
+                onCallback: () {
+                  if (controller.homeController.currentIndex.value == 0) {
+                    controller.homeController.favouriteList
+                        .add(controller.argumentData.value);
+                  } else {
+                    controller.homeController.favouriteList.removeWhere(
+                        (element) =>
+                            element.id == controller.argumentData.value.id);
+                  }
+
+                  sharedPreferencesHelper.storePrefData(
+                      'FavList',
+                      controller.homeController.favouriteList.isNotEmpty
+                          ? json.encode(controller.homeController.favouriteList)
+                          : '');
+
+                  Get.back(
+                      result: controller.homeController.currentIndex.value == 1
+                          ? true
+                          : null);
+                },
+              )
             ],
           ),
         ),

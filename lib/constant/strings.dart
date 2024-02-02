@@ -18,4 +18,6 @@ class Strings {
   static const String strLastHistoricalData = 'Last Historical Data :';
   static const String strNotAvailable = 'Not Available';
   static const String strAddToFavourite = 'Add To Favourite';
+  static const String strRemoveFromFavourite = 'Remove from Favourite';
+  static const String strNoData = 'No data found!';
 }

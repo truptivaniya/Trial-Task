@@ -5,8 +5,11 @@ import 'package:trial_task/screens/screen.dart';
 
 import 'constant/constant.dart';
 import 'service/service.dart';
+import 'util/util.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await sharedPreferencesHelper.getSharedPreferencesInstance();
   runApp(const MyApp());
 }
 

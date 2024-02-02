@@ -18,4 +18,10 @@ class SplashController extends BaseController {
   void goToHome() async {
     return Get.offAndToNamed(HomeScreen.pageId);
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+    dispose();
+  }
 }
