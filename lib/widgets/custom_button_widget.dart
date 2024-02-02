@@ -8,6 +8,7 @@ class CustomButton extends StatelessWidget {
   final String? title;
   final double width;
   final double? height;
+  final bool disable;
 
   const CustomButton({
     Key? key,
@@ -15,6 +16,7 @@ class CustomButton extends StatelessWidget {
     this.onCallback,
     this.width = 0.4,
     this.height = 52.0,
+    this.disable = false
   }) : super(key: key);
 
   @override
@@ -25,13 +27,13 @@ class CustomButton extends StatelessWidget {
       child: TextButton(
         style: TextButton.styleFrom(
           elevation: 0,
-          backgroundColor: ColorConfig.colorBlue,
+          backgroundColor: !disable ? ColorConfig.colorBlue : ColorConfig.colorShimmerDarkGrey,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
-            side: BorderSide(color: ColorConfig.colorBlue),
+            side: BorderSide(color: !disable ? ColorConfig.colorBlue : ColorConfig.colorShimmerDarkGrey),
           ),
         ),
-        onPressed: onCallback,
+        onPressed: disable ? null : onCallback,
         child: Text(
           title!,
           textAlign: TextAlign.center,

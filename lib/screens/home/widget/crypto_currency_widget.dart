@@ -18,7 +18,7 @@ class CryptoCurrencyWidget extends StatelessWidget {
         key: controller.currentIndex.value == 0
             ? controller.refreshKey1
             : controller.refreshKey2,
-        onRefresh: controller.refreshList,
+        onRefresh: controller.currentIndex.value == 0 ? controller.refreshList : controller.refreshFavList,
         child: SingleChildScrollView(
           controller: controller.scrollController,
           child: Padding(
@@ -72,13 +72,13 @@ class CryptoCurrencyWidget extends StatelessWidget {
                       },
                     ),
                     getPlaceHolder(),
-                    controller.isLoad.value
+                    controller.isLoad.value || controller.isFavLoad.value
                         ? const SizedBox(
                             height: 50,
                             child: Center(child: CircularProgressIndicator()),
                           )
                         : Container(),
-                    controller.isLoad.value
+                    controller.isLoad.value || controller.isFavLoad.value
                         ? const SizedBox(
                             height: 15,
                           )

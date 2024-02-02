@@ -86,32 +86,44 @@ class CurrencyDetailScreen extends GetView<CurrencyDetailController> {
               const SizedBox(
                 height: 20,
               ),
-              CustomButton(
-                title: controller.homeController.currentIndex.value == 0
-                    ? Strings.strAddToFavourite
-                    : Strings.strRemoveFromFavourite,
-                onCallback: () {
-                  if (controller.homeController.currentIndex.value == 0) {
-                    controller.homeController.favouriteList
-                        .add(controller.argumentData.value);
-                  } else {
-                    controller.homeController.favouriteList.removeWhere(
-                        (element) =>
-                            element.id == controller.argumentData.value.id);
-                  }
+              Obx(() => CustomButton(
+                    disable:
+                        controller.homeController.currentIndex.value == 0 &&
+                                controller.homeController.favouriteList
+                                    .where((element) =>
+                                        element.id ==
+                                        controller.argumentData.value.id)
+                                    .toList()
+                                    .isNotEmpty
+                            ? true
+                            : false,
+                    title: controller.homeController.currentIndex.value == 0
+                        ? Strings.strAddToFavourite
+                        : Strings.strRemoveFromFavourite,
+                    onCallback: () {
+                      if (controller.homeController.currentIndex.value == 0) {
+                        controller.homeController.favouriteList
+                            .add(controller.argumentData.value);
+                      } else {
+                        controller.homeController.favouriteList.removeWhere(
+                            (element) =>
+                                element.id == controller.argumentData.value.id);
+                      }
 
-                  sharedPreferencesHelper.storePrefData(
-                      'FavList',
-                      controller.homeController.favouriteList.isNotEmpty
-                          ? json.encode(controller.homeController.favouriteList)
-                          : '');
+                      sharedPreferencesHelper.storePrefData(
+                          'FavList',
+                          controller.homeController.favouriteList.isNotEmpty
+                              ? json.encode(
+                                  controller.homeController.favouriteList)
+                              : '');
 
-                  Get.back(
-                      result: controller.homeController.currentIndex.value == 1
-                          ? true
-                          : null);
-                },
-              )
+                      Get.back(
+                          result:
+                              controller.homeController.currentIndex.value == 1
+                                  ? true
+                                  : null);
+                    },
+                  ))
             ],
           ),
         ),
